@@ -3,6 +3,7 @@ package br.com.zupacademy.mercadolivre.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,7 @@ import br.com.zupacademy.mercadolivre.repository.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
+@Profile(value = "prod")
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -47,6 +49,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/categoria").permitAll()
 		.antMatchers(HttpMethod.GET, "/categoria/*").permitAll()
+		.antMatchers(HttpMethod.GET, "/produto").permitAll()
+		.antMatchers(HttpMethod.GET, "/produto/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()
