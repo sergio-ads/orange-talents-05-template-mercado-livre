@@ -11,7 +11,7 @@ import br.com.zupacademy.mercadolivre.model.Usuario;
 
 public class UsuarioDto {
 	private String login;
-	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = Shape.STRING)
 	private LocalDateTime dataCadastro;
 	
 	public UsuarioDto(Usuario usuario) {

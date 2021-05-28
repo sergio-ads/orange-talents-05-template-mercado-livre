@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.zupacademy.mercadolivre.compartilhado.ImageUpload;
+import br.com.zupacademy.mercadolivre.compartilhado.image.ImageUpload;
 import br.com.zupacademy.mercadolivre.model.Imagem;
 import br.com.zupacademy.mercadolivre.model.Produto;
 import br.com.zupacademy.mercadolivre.model.Usuario;

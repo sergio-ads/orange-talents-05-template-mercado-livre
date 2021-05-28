@@ -1,4 +1,4 @@
-package br.com.zupacademy.mercadolivre.compartilhado;
+package br.com.zupacademy.mercadolivre.compartilhado.image;
 
 import java.util.List;
 

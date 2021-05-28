@@ -17,7 +17,7 @@ public class ProdutoDto {
 	private Long quantidade;
 	private Map<String, String> caracteristicas;
 	private String descricao;
-	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = Shape.STRING)
 	private LocalDateTime dataCadastro;
 	
 	public ProdutoDto(Produto produto) {		
