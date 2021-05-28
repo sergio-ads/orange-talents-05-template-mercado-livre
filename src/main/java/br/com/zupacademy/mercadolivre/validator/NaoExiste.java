@@ -10,12 +10,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = {UniqueValueValidator.class})
+@Constraint(validatedBy = {NotExistsValidator.class})
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueValue {
+public @interface NaoExiste {
 
-	String message() default "Esse atributo já existe no banco de dados";
+	String message() default "O atributo já existe no banco de dados";
 	
 	Class<?>[] groups() default { };
 	

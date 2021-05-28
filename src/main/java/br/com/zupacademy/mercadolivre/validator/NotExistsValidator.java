@@ -8,9 +8,7 @@ import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.util.Assert;
-
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
+public class NotExistsValidator implements ConstraintValidator<NaoExiste, String> {
 	
 	private String domainAttribute;
 	private Class<?> klass;
@@ -19,18 +17,21 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 	
 	
 	@Override
-	public void initialize(UniqueValue params) {
+	public void initialize(NaoExiste params) {
 		domainAttribute = params.fieldName();
 		klass = params.domainClass();
 	}
 	
 	@Override
-	public boolean isValid(Object value, ConstraintValidatorContext context) {
+	public boolean isValid(String value, ConstraintValidatorContext context) {
 		Query query = manager.createQuery("select 1 from " +klass.getName() +" a where a." +domainAttribute +"=:value");
 		query.setParameter("value", value);
 		List<?> list = query.getResultList();
-		Assert.state(list.size() <= 1, "Foi encontrado mais de um(a) " +klass.getSimpleName() +" com o atributo " +domainAttribute +" = " +value);
-		return list.isEmpty();
+		
+		if(list.size() == 0) 
+			return true;
+		else
+			return false;
 	}
 	
 

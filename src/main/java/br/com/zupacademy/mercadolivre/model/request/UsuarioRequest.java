@@ -7,10 +7,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.com.zupacademy.mercadolivre.model.Usuario;
-import br.com.zupacademy.mercadolivre.validator.UniqueValue;
+import br.com.zupacademy.mercadolivre.validator.NaoExiste;
 
 public class UsuarioRequest {
-	@NotBlank @Email @UniqueValue(domainClass = Usuario.class, fieldName = "login")
+	@NotBlank @Email @NaoExiste(domainClass = Usuario.class, fieldName = "login")
 	private String login;
 	@NotBlank @Size(min = 6)
 	private String senha;

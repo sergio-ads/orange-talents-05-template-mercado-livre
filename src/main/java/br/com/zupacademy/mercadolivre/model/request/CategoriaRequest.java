@@ -4,12 +4,14 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.zupacademy.mercadolivre.model.Categoria;
 import br.com.zupacademy.mercadolivre.repository.CategoriaRepository;
-import br.com.zupacademy.mercadolivre.validator.UniqueValue;
+import br.com.zupacademy.mercadolivre.validator.ExisteUnico;
+import br.com.zupacademy.mercadolivre.validator.NaoExiste;
 
 public class CategoriaRequest {
 
-	@NotBlank @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
+	@NotBlank @NaoExiste(domainClass = Categoria.class, fieldName = "nome")
 	private String nome;
+	@ExisteUnico(domainClass = Categoria.class, fieldName = "nome", fieldRequest = "categoriaMae")
 	private String categoriaMae;
 
 	public CategoriaRequest(@NotBlank String nome, String categoriaMae) {

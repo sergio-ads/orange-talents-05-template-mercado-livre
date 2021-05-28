@@ -2,7 +2,9 @@ package br.com.zupacademy.mercadolivre.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -38,19 +40,23 @@ public class Produto {
 	@ManyToOne
 	@NotNull
 	private Categoria categoria;
+	@NotNull
+	@ManyToOne
+	private Usuario usuario;
 	
 	@Deprecated
 	public Produto() { }
 
-	public Produto(@NotBlank String nome, @NotNull @Min(1) BigDecimal valor, @NotNull @Min(0) Long quantidade,
-			@NotNull @Size(min = 3) Map<String, String> caracteristica, @NotBlank @Size(max = 1000) String descricao,
-			@NotNull Categoria categoria) {
+	public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) Long quantidade,
+			@NotNull @Size(min = 3) Map<String, String> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
+			@NotNull Categoria categoria, @NotNull Usuario usuario) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidade = quantidade;
-		this.caracteristicas = caracteristica;
+		this.caracteristicas = caracteristicas;
 		this.descricao = descricao;
 		this.categoria = categoria;
+		this.usuario = usuario;
 	}
 
 	public String getNome() {
@@ -79,6 +85,14 @@ public class Produto {
 
 	public Categoria getCategoria() {
 		return categoria;
+	}
+
+	public boolean pertenceAoUsuario(Usuario usuario) {
+		return this.usuario.equals(usuario);
+	}
+
+	public List<Imagem> associaImagens(List<String> links) {
+		return links.stream().map(link -> new Imagem(link, this)).collect(Collectors.toList());		
 	}
 	
 }
