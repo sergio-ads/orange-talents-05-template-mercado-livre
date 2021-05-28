@@ -22,11 +22,14 @@ import br.com.zupacademy.mercadolivre.model.Imagem;
 import br.com.zupacademy.mercadolivre.model.Produto;
 import br.com.zupacademy.mercadolivre.model.Usuario;
 import br.com.zupacademy.mercadolivre.model.dto.ImagemDto;
+import br.com.zupacademy.mercadolivre.model.dto.ProdutoDetalhadoDto;
 import br.com.zupacademy.mercadolivre.model.dto.ProdutoDto;
 import br.com.zupacademy.mercadolivre.model.request.ImagemRequest;
 import br.com.zupacademy.mercadolivre.model.request.ProdutoRequest;
 import br.com.zupacademy.mercadolivre.repository.CategoriaRepository;
 import br.com.zupacademy.mercadolivre.repository.ImagemRepository;
+import br.com.zupacademy.mercadolivre.repository.OpiniaoRepository;
+import br.com.zupacademy.mercadolivre.repository.PerguntaRepository;
 import br.com.zupacademy.mercadolivre.repository.ProdutoRepository;
 import br.com.zupacademy.mercadolivre.repository.UsuarioRepository;
 
@@ -42,12 +45,23 @@ public class ProdutoController {
 	@Autowired
 	private ImagemRepository imagemRepository;
 	@Autowired
+	private PerguntaRepository perguntaRepository;
+	@Autowired
+	private OpiniaoRepository opiniaoRepository;
+	@Autowired
 	private ImageUpload fakeImageUpload;
 	
 	@GetMapping
 	public List<ProdutoDto> listAll() {
 		List<Produto> produtos = produtoRepository.findAll();
 		return ProdutoDto.converter(produtos);
+	}
+	
+	@GetMapping(value = "/{nomeProduto}")
+	public ProdutoDetalhadoDto getById(@PathVariable String nomeProduto) {		
+		Produto produto =  produtoRepository.findByNome(nomeProduto)
+				.orElseThrow(() -> new IllegalStateException("Esse produto não foi encontrado"));
+		return ProdutoDetalhadoDto.converter(produto, perguntaRepository, opiniaoRepository, imagemRepository);
 	}
 	
 	@PostMapping

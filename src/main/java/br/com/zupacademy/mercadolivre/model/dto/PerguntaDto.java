@@ -14,13 +14,11 @@ public class PerguntaDto {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = Shape.STRING)
 	private LocalDateTime dataCriacao;
 	private String usuario;
-	private String produto;
 	
 	public PerguntaDto(Pergunta pergunta) {
 		this.titulo = pergunta.getTitulo();
 		this.dataCriacao = pergunta.getDataCriacao();
 		this.usuario = pergunta.getUsuario().getLogin();
-		this.produto = pergunta.getProduto().getNome();
 	}
 
 	public static List<PerguntaDto> converter(List<Pergunta> opinioes) {
@@ -37,10 +35,6 @@ public class PerguntaDto {
 
 	public String getUsuario() {
 		return usuario;
-	}
-
-	public String getProduto() {
-		return produto;
 	}
 
 }

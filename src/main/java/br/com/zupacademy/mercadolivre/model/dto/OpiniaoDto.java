@@ -11,14 +11,12 @@ public class OpiniaoDto {
 	private String titulo;
 	private String descricao;
 	private String usuario;
-	private String produto;
 	
 	public OpiniaoDto(Opiniao opiniao) {
 		this.nota = opiniao.getNota();
 		this.titulo = opiniao.getTitulo();
 		this.descricao = opiniao.getDescricao();
 		this.usuario = opiniao.getUsuario().getLogin();
-		this.produto = opiniao.getProduto().getNome();
 	}
 
 	public static List<OpiniaoDto> converter(List<Opiniao> opinioes) {
@@ -29,40 +27,16 @@ public class OpiniaoDto {
 		return nota;
 	}
 
-	public void setNota(Integer nota) {
-		this.nota = nota;
-	}
-
 	public String getTitulo() {
 		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
 	}
 
 	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public String getUsuario() {
 		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getProduto() {
-		return produto;
-	}
-
-	public void setProduto(String produto) {
-		this.produto = produto;
 	}
 
 }
