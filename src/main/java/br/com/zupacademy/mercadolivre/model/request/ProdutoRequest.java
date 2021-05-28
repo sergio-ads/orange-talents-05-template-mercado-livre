@@ -30,10 +30,10 @@ public class ProdutoRequest {
 	@NotBlank @Size(max = 1000)
 	private String descricao;
 	@NotNull
-	@ExisteUnico(domainClass = Categoria.class, fieldName = "nome", fieldRequest = "categoria")
+	@ExisteUnico(domainClass = Categoria.class, fieldName = "nome")
 	private String categoria;
 	@NotNull
-	@ExisteUnico(domainClass = Usuario.class, fieldName = "login", fieldRequest = "usuario")
+	@ExisteUnico(domainClass = Usuario.class, fieldName = "login")
 	private String usuario;
 	
 	public ProdutoRequest(@NotBlank String nome, @NotNull @Min(1) BigDecimal valor, @NotNull @Min(0) Long quantidade,

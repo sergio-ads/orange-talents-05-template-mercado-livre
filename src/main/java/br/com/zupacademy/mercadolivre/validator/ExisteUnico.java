@@ -25,6 +25,4 @@ public @interface ExisteUnico {
 
 	String fieldName();
 	
-	String fieldRequest();
-	
 }

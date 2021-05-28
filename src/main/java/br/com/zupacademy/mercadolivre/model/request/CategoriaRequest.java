@@ -11,7 +11,7 @@ public class CategoriaRequest {
 
 	@NotBlank @NaoExiste(domainClass = Categoria.class, fieldName = "nome")
 	private String nome;
-	@ExisteUnico(domainClass = Categoria.class, fieldName = "nome", fieldRequest = "categoriaMae")
+	@ExisteUnico(domainClass = Categoria.class, fieldName = "nome")
 	private String categoriaMae;
 
 	public CategoriaRequest(@NotBlank String nome, String categoriaMae) {
