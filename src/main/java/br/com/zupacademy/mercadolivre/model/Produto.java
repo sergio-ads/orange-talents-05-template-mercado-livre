@@ -87,12 +87,24 @@ public class Produto {
 		return categoria;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	public boolean pertenceAoUsuario(Usuario usuario) {
 		return this.usuario.equals(usuario);
 	}
 
 	public List<Imagem> associaImagens(List<String> links) {
 		return links.stream().map(link -> new Imagem(link, this)).collect(Collectors.toList());		
+	}
+
+	public boolean abateEstoque(@NotNull @Positive Long quantidade) {		
+		if(quantidade <= this.quantidade) {
+			this.quantidade -= quantidade;
+			return true;
+		}		
+		return false;
 	}
 	
 }
