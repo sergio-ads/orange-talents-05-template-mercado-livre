@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zupacademy.mercadolivre.compartilhado.email.EnviaEmail;
 import br.com.zupacademy.mercadolivre.gateway.Gateway;
@@ -43,7 +44,9 @@ public class CompraController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody @Valid CompraRequest compraRequest, Principal principal) {
+	public ResponseEntity<?> save(@RequestBody @Valid CompraRequest compraRequest, 
+			UriComponentsBuilder uriComponentsBuilder, Principal principal) {
+		
 		Compra compra = compraRequest.toModel(produtoRepository, usuarioRepository, principal);
 		Produto produto = compra.getProduto();
 		Gateway gateway = compra.getGateway();
@@ -55,8 +58,7 @@ public class CompraController {
 		
 		return ResponseEntity
 				.status(HttpStatus.FOUND)
-				.body(gateway.getRedirect(compra.getId().toString(), "/"));
-	}
-	
+				.body(gateway.getRedirect(compra, uriComponentsBuilder));
+	}	
 	
 }

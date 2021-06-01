@@ -1,19 +1,33 @@
 package br.com.zupacademy.mercadolivre.gateway;
 
-public enum Gateway {
-	PAGSEGURO,
-	PAYPAL;
+import org.springframework.web.util.UriComponentsBuilder;
 
-	public String getRedirect(String idCompra, String urlRetorno) {
-		switch(this.name()) {
-			case "PAGSEGURO": {
-				return "pagseguro.com?returnId=" +idCompra +"&redirectUrl=" +urlRetorno;
-			}
-			case "PAYPAL": {
-				return "paypal.com?buyerId=" +idCompra +"&redirectUrl=" +urlRetorno;
-			}
+import br.com.zupacademy.mercadolivre.model.Compra;
+
+public enum Gateway {
+	
+	PAGSEGURO {
+		@Override
+		public String getRedirect(Compra compra, UriComponentsBuilder uriComponentsBuilder) {
+			String urlRetornoPagseguro = uriComponentsBuilder
+					.path("/retorno-pagseguro/{id}")
+					.buildAndExpand(compra.getId()).toString();
+
+			return "pagseguro.com/returnId=" + compra.getId() + "?redirectUrl="
+					+ urlRetornoPagseguro;
 		}
-		return "";
-	}
+	},
+	PAYPAL {
+		@Override
+		public String getRedirect(Compra compra, UriComponentsBuilder uriComponentsBuilder) {
+			String urlRetornoPaypal = uriComponentsBuilder
+					.path("/retorno-paypal/{id}").buildAndExpand(compra.getId())
+					.toString();
+
+			return "paypal.com/buyerId=" + compra.getId() + "?redirectUrl=" + urlRetornoPaypal;
+		}
+	};
+
+	abstract public String getRedirect(Compra compra, UriComponentsBuilder uriComponentsBuilder);
 	
 }
